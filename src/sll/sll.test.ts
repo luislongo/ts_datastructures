@@ -6,9 +6,9 @@ describe("SLL", () => {
     sll.push(1);
     sll.push(2);
     sll.push(3);
-    expect(sll.root?.value).toBe(1);
-    expect(sll.root?.next?.value).toBe(2);
-    expect(sll.root?.next?.next?.value).toBe(3);
+    expect(sll.head?.value).toBe(1);
+    expect(sll.head?.next?.value).toBe(2);
+    expect(sll.head?.next?.next?.value).toBe(3);
   });
 
   it("should pop from end of list", () => {
@@ -17,9 +17,9 @@ describe("SLL", () => {
     sll.push(2);
     sll.push(3);
     sll.pop();
-    expect(sll.root?.value).toBe(1);
-    expect(sll.root?.next?.value).toBe(2);
-    expect(sll.root?.next?.next).toBeUndefined();
+    expect(sll.head?.value).toBe(1);
+    expect(sll.head?.next?.value).toBe(2);
+    expect(sll.head?.next?.next).toBeUndefined();
   });
 
   it("should shift from beginning of list", () => {
@@ -28,9 +28,9 @@ describe("SLL", () => {
     sll.push(2);
     sll.push(3);
     sll.shift();
-    expect(sll.root?.value).toBe(2);
-    expect(sll.root?.next?.value).toBe(3);
-    expect(sll.root?.next?.next).toBeUndefined();
+    expect(sll.head?.value).toBe(2);
+    expect(sll.head?.next?.value).toBe(3);
+    expect(sll.head?.next?.next).toBeUndefined();
   });
 
   it("should unshift to beginning of list", () => {
@@ -38,9 +38,9 @@ describe("SLL", () => {
     sll.unshift(1);
     sll.unshift(2);
     sll.unshift(3);
-    expect(sll.root?.value).toBe(3);
-    expect(sll.root?.next?.value).toBe(2);
-    expect(sll.root?.next?.next?.value).toBe(1);
+    expect(sll.head?.value).toBe(3);
+    expect(sll.head?.next?.value).toBe(2);
+    expect(sll.head?.next?.next?.value).toBe(1);
   });
 
   it("should get node at index", () => {
@@ -61,9 +61,9 @@ describe("SLL", () => {
     sll.set(0, 4);
     sll.set(1, 5);
     sll.set(2, 6);
-    expect(sll.root?.value).toBe(4);
-    expect(sll.root?.next?.value).toBe(5);
-    expect(sll.root?.next?.next?.value).toBe(6);
+    expect(sll.head?.value).toBe(4);
+    expect(sll.head?.next?.value).toBe(5);
+    expect(sll.head?.next?.next?.value).toBe(6);
   });
 
   it("should insert node at index", () => {
@@ -74,12 +74,12 @@ describe("SLL", () => {
     sll.insert(0, 4);
     sll.insert(1, 5);
     sll.insert(2, 6);
-    expect(sll.root?.value).toBe(4);
-    expect(sll.root?.next?.value).toBe(5);
-    expect(sll.root?.next?.next?.value).toBe(6);
-    expect(sll.root?.next?.next?.next?.value).toBe(1);
-    expect(sll.root?.next?.next?.next?.next?.value).toBe(2);
-    expect(sll.root?.next?.next?.next?.next?.next?.value).toBe(3);
+    expect(sll.head?.value).toBe(4);
+    expect(sll.head?.next?.value).toBe(5);
+    expect(sll.head?.next?.next?.value).toBe(6);
+    expect(sll.head?.next?.next?.next?.value).toBe(1);
+    expect(sll.head?.next?.next?.next?.next?.value).toBe(2);
+    expect(sll.head?.next?.next?.next?.next?.next?.value).toBe(3);
   });
 
   it("should remove node at index", () => {
@@ -90,8 +90,8 @@ describe("SLL", () => {
     sll.remove(0);
     sll.remove(1);
     sll.remove(2);
-    expect(sll.root?.value).toBe(2);
-    expect(sll.root?.next).toBeUndefined();
+    expect(sll.head?.value).toBe(2);
+    expect(sll.head?.next).toBeUndefined();
   });
 
   it("should find at index", () => {
@@ -116,9 +116,9 @@ describe("SLL", () => {
     sll.push({ name: "Jane", age: 25 });
     sll.push({ name: "Jack", age: 40 });
 
-    expect(sll.root?.value.name).toBe("John");
-    expect(sll.root?.next?.value.name).toBe("Jane");
-    expect(sll.root?.next?.next?.value.name).toBe("Jack");
+    expect(sll.head?.value.name).toBe("John");
+    expect(sll.head?.next?.value.name).toBe("Jane");
+    expect(sll.head?.next?.next?.value.name).toBe("Jack");
 
     expect(sll.get(0)?.age).toBe(30);
     expect(sll.get(1)?.age).toBe(25);
@@ -155,9 +155,9 @@ describe("SLL", () => {
 
     const result = sll.map((person) => person.age);
 
-    expect(result.root?.value).toBe(30);
-    expect(result.root?.next?.value).toBe(25);
-    expect(result.root?.next?.next?.value).toBe(40);
+    expect(result.head?.value).toBe(30);
+    expect(result.head?.next?.value).toBe(25);
+    expect(result.head?.next?.next?.value).toBe(40);
   });
 
   it("should filter the correct elements", () => {
@@ -173,9 +173,9 @@ describe("SLL", () => {
 
     const result = sll.filter((person) => person.age >= 30);
 
-    expect(result.root?.value.name).toBe("John");
-    expect(result.root?.next?.value.name).toBe("Jack");
-    expect(result.root?.next?.next?.value.name).toBeUndefined();
+    expect(result.head?.value.name).toBe("John");
+    expect(result.head?.next?.value.name).toBe("Jack");
+    expect(result.head?.next?.next?.value.name).toBeUndefined();
   });
 
   it("should reduce to a single value", () => {

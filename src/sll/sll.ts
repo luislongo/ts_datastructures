@@ -8,19 +8,19 @@ export class SLLNode<T> {
 }
 
 export class SLL<T> {
-  root: SLLNode<T> | undefined;
+  head: SLLNode<T> | undefined;
 
   constructor() {}
 
   push(value: T) {
     const node = new SLLNode(value);
 
-    if (!this.root) {
-      this.root = node;
+    if (!this.head) {
+      this.head = node;
       return;
     }
 
-    let current = this.root;
+    let current = this.head;
     while (current.next) {
       current = current.next;
     }
@@ -28,11 +28,11 @@ export class SLL<T> {
   }
 
   pop(): T | undefined {
-    if (!this.root) {
+    if (!this.head) {
       return;
     }
 
-    let current = this.root;
+    let current = this.head;
     let prev = current;
     while (current.next) {
       prev = current;
@@ -43,12 +43,12 @@ export class SLL<T> {
   }
 
   shift(): T | undefined {
-    if (!this.root) {
+    if (!this.head) {
       return;
     }
 
-    const value = this.root.value;
-    this.root = this.root.next;
+    const value = this.head.value;
+    this.head = this.head.next;
 
     return value;
   }
@@ -56,21 +56,21 @@ export class SLL<T> {
   unshift(value: T) {
     const node = new SLLNode(value);
 
-    if (!this.root) {
-      this.root = node;
+    if (!this.head) {
+      this.head = node;
       return;
     }
 
-    node.next = this.root;
-    this.root = node;
+    node.next = this.head;
+    this.head = node;
   }
 
   private _getNode(index: number): SLLNode<T> | undefined {
-    if (!this.root) {
+    if (!this.head) {
       return;
     }
 
-    let current = this.root;
+    let current = this.head;
     let i = 0;
     while (i < index && current.next) {
       current = current.next;
@@ -85,7 +85,7 @@ export class SLL<T> {
   }
 
   set(index: number, value: T) {
-    if (!this.root) {
+    if (!this.head) {
       return;
     }
     const node = this._getNode(index);
@@ -127,11 +127,11 @@ export class SLL<T> {
   }
 
   find(predicate: (value: T) => boolean): T | undefined {
-    if (!this.root) {
+    if (!this.head) {
       return;
     }
 
-    let current: SLLNode<T> | undefined = this.root;
+    let current: SLLNode<T> | undefined = this.head;
     while (current) {
       if (predicate(current.value)) {
         return current.value;
@@ -142,7 +142,7 @@ export class SLL<T> {
 
   map<U>(predicate: (value: T) => U): SLL<U> {
     const list = new SLL<U>();
-    let current: SLLNode<T> | undefined = this.root;
+    let current: SLLNode<T> | undefined = this.head;
     while (current) {
       list.push(predicate(current.value));
       current = current.next;
@@ -152,7 +152,7 @@ export class SLL<T> {
 
   filter(predicate: (value: T) => boolean): SLL<T> {
     const list = new SLL<T>();
-    let current: SLLNode<T> | undefined = this.root;
+    let current: SLLNode<T> | undefined = this.head;
     while (current) {
       if (predicate(current.value)) {
         list.push(current.value);
@@ -164,7 +164,7 @@ export class SLL<T> {
 
   reduce<U>(predicate: (acc: U, value: T) => U, initialValue: U): U {
     let acc = initialValue;
-    let current: SLLNode<T> | undefined = this.root;
+    let current: SLLNode<T> | undefined = this.head;
     while (current) {
       acc = predicate(acc, current.value);
       current = current.next;
@@ -173,7 +173,7 @@ export class SLL<T> {
   }
 
   forEach(predicate: (value: T) => void) {
-    let current: SLLNode<T> | undefined = this.root;
+    let current: SLLNode<T> | undefined = this.head;
     while (current) {
       predicate(current.value);
       current = current.next;
