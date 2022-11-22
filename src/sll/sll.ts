@@ -126,14 +126,14 @@ export class SLL<T> {
     return value;
   }
 
-  find(value: T): T | undefined {
+  find(predicate: (value: T) => boolean): T | undefined {
     if (!this.root) {
       return;
     }
 
     let current: SLLNode<T> | undefined = this.root;
     while (current) {
-      if (current.value === value) {
+      if (predicate(current.value)) {
         return current.value;
       }
       current = current.next;
