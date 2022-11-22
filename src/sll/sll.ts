@@ -60,4 +60,25 @@ export class SLL {
     node.next = this.root;
     this.root = node;
   }
+
+  get(index: number) {
+    if (!this.root) {
+      return;
+    }
+
+    let current = this.root;
+    let i = 0;
+    while (i < index && current.next) {
+      current = current.next;
+      i++;
+    }
+    return current;
+  }
+
+  set(index: number, value: number) {
+    const node = this.get(index);
+    if (node) {
+      node.value = value;
+    }
+  }
 }
