@@ -139,4 +139,44 @@ export class SLL<T> {
       current = current.next;
     }
   }
+
+  map<U>(predicate: (value: T) => U): SLL<U> {
+    const list = new SLL<U>();
+    let current: SLLNode<T> | undefined = this.root;
+    while (current) {
+      list.push(predicate(current.value));
+      current = current.next;
+    }
+    return list;
+  }
+
+  filter(predicate: (value: T) => boolean): SLL<T> {
+    const list = new SLL<T>();
+    let current: SLLNode<T> | undefined = this.root;
+    while (current) {
+      if (predicate(current.value)) {
+        list.push(current.value);
+      }
+      current = current.next;
+    }
+    return list;
+  }
+
+  reduce<U>(predicate: (acc: U, value: T) => U, initialValue: U): U {
+    let acc = initialValue;
+    let current: SLLNode<T> | undefined = this.root;
+    while (current) {
+      acc = predicate(acc, current.value);
+      current = current.next;
+    }
+    return acc;
+  }
+
+  forEach(predicate: (value: T) => void) {
+    let current: SLLNode<T> | undefined = this.root;
+    while (current) {
+      predicate(current.value);
+      current = current.next;
+    }
+  }
 }

@@ -136,8 +136,72 @@ describe("SLL", () => {
     sll.push({ name: "Jane", age: 25 });
     sll.push({ name: "Jack", age: 40 });
 
-    expect(sll.find((person) => person.name === "John")).toBe(0);
-    expect(sll.find((person) => person.name === "Jane")).toBe(1);
-    expect(sll.find((person) => person.name === "Jack")).toBe(2);
+    expect(sll.find((person) => person.name === "John")?.age).toBe(30);
+    expect(sll.find((person) => person.name === "Jane")?.age).toBe(25);
+    expect(sll.find((person) => person.name === "Jack")?.age).toBe(40);
+    expect(sll.find((person) => person.name === "Linda")?.age).toBeUndefined();
+  });
+
+  it("should map to new list with correct typing", () => {
+    interface Person {
+      name: string;
+      age: number;
+    }
+
+    const sll = new SLL<Person>();
+    sll.push({ name: "John", age: 30 });
+    sll.push({ name: "Jane", age: 25 });
+    sll.push({ name: "Jack", age: 40 });
+
+    const result = sll.map((person) => person.age);
+
+    expect(result.root?.value).toBe(30);
+    expect(result.root?.next?.value).toBe(25);
+    expect(result.root?.next?.next?.value).toBe(40);
+  });
+
+  it("should filter the correct elements", () => {
+    interface Person {
+      name: string;
+      age: number;
+    }
+
+    const sll = new SLL<Person>();
+    sll.push({ name: "John", age: 30 });
+    sll.push({ name: "Jane", age: 25 });
+    sll.push({ name: "Jack", age: 40 });
+
+    const result = sll.filter((person) => person.age >= 30);
+
+    expect(result.root?.value.name).toBe("John");
+    expect(result.root?.next?.value.name).toBe("Jack");
+    expect(result.root?.next?.next?.value.name).toBeUndefined();
+  });
+
+  it("should reduce to a single value", () => {
+    interface Person {
+      name: string;
+      age: number;
+    }
+
+    const sll = new SLL<Person>();
+    sll.push({ name: "John", age: 30 });
+    sll.push({ name: "Jane", age: 25 });
+    sll.push({ name: "Jack", age: 40 });
+
+    const result = sll.reduce((acc, person) => acc + person.age, 0);
+
+    expect(result).toBe(95);
+  });
+
+  it("should run function for every component", () => {
+    const sll = new SLL();
+    sll.push(1);
+    sll.push(2);
+    sll.push(3);
+    sll.forEach((v) => {
+      expect(v).toBeGreaterThanOrEqual(1);
+      expect(v).toBeLessThanOrEqual(3);
+    });
   });
 });
