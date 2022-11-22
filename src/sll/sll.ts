@@ -1,18 +1,18 @@
-export class SLLNode {
-  value: number;
-  next: SLLNode | undefined;
+export class SLLNode<T> {
+  value: T;
+  next: SLLNode<T> | undefined;
 
-  constructor(value: number) {
+  constructor(value: T) {
     this.value = value;
   }
 }
 
-export class SLL {
-  root: SLLNode | undefined;
+export class SLL<T> {
+  root: SLLNode<T> | undefined;
 
   constructor() {}
 
-  push(value: number) {
+  push(value: T) {
     const node = new SLLNode(value);
 
     if (!this.root) {
@@ -27,7 +27,7 @@ export class SLL {
     current.next = node;
   }
 
-  pop(): number | undefined {
+  pop(): T | undefined {
     if (!this.root) {
       return;
     }
@@ -42,7 +42,7 @@ export class SLL {
     return current.value;
   }
 
-  shift(): number | undefined {
+  shift(): T | undefined {
     if (!this.root) {
       return;
     }
@@ -53,7 +53,7 @@ export class SLL {
     return value;
   }
 
-  unshift(value: number) {
+  unshift(value: T) {
     const node = new SLLNode(value);
 
     if (!this.root) {
@@ -65,7 +65,7 @@ export class SLL {
     this.root = node;
   }
 
-  private _getNode(index: number): SLLNode | undefined {
+  private _getNode(index: number): SLLNode<T> | undefined {
     if (!this.root) {
       return;
     }
@@ -79,12 +79,12 @@ export class SLL {
     return current;
   }
 
-  get(index: number): number | undefined {
+  get(index: number): T | undefined {
     const node = this._getNode(index);
     return node ? node.value : undefined;
   }
 
-  set(index: number, value: number) {
+  set(index: number, value: T) {
     if (!this.root) {
       return;
     }
@@ -94,7 +94,7 @@ export class SLL {
     }
   }
 
-  insert(index: number, value: number) {
+  insert(index: number, value: T) {
     if (index === 0) {
       this.unshift(value);
       return;
@@ -110,7 +110,7 @@ export class SLL {
     prev.next = node;
   }
 
-  remove(index: number): number | undefined {
+  remove(index: number): T | undefined {
     if (index === 0) {
       return this.shift();
     }
@@ -126,12 +126,12 @@ export class SLL {
     return value;
   }
 
-  find(value: number): number | undefined {
+  find(value: T): T | undefined {
     if (!this.root) {
       return;
     }
 
-    let current: SLLNode | undefined = this.root;
+    let current: SLLNode<T> | undefined = this.root;
     while (current) {
       if (current.value === value) {
         return current.value;

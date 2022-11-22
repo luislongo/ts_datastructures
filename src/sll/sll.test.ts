@@ -104,4 +104,26 @@ describe("SLL", () => {
     expect(sll.find(3)).toBe(3);
     expect(sll.find(4)).toBeUndefined();
   });
+
+  it("should be able to handle generics", () => {
+    interface Person {
+      name: string;
+      age: number;
+    }
+
+    const sll = new SLL<Person>();
+    sll.push({ name: "John", age: 30 });
+    sll.push({ name: "Jane", age: 25 });
+    sll.push({ name: "Jack", age: 40 });
+
+    expect(sll.root?.value.name).toBe("John");
+    expect(sll.root?.next?.value.name).toBe("Jane");
+    expect(sll.root?.next?.next?.value.name).toBe("Jack");
+
+    expect(sll.get(0)?.age).toBe(30);
+    expect(sll.get(1)?.age).toBe(25);
+    expect(sll.get(2)?.age).toBe(40);
+
+    expect(sll.find({ name: "John", age: 30 })).toBe(0);
+  });
 });
